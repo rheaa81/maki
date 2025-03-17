@@ -1,0 +1,1025 @@
+:root {
+  --color-brown-900: #432414;
+  --color-brown-800: #5c3a1a;
+  --color-brown-700: #7d5a2f;
+  --color-brown-600: #9c7a4f;
+  --color-brown-100: #f5f0e6;
+  --color-yellow-600: #e6b800;
+  --color-yellow-500: #f5cd21;
+  --color-yellow-400: #ffdb4d;
+  --color-yellow-300: #ffe680;
+}
+
+/* Update the body background to match the About Us section */
+body {
+  background-color: white;
+  color: var(--color-brown-900);
+  padding-top: 80px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.text-brown-900 {
+  color: var(--color-brown-900);
+}
+
+.bg-brown-900 {
+  background-color: var(--color-brown-900);
+}
+
+.bg-brown-100 {
+  background-color: var(--color-brown-100);
+}
+
+.hover-scale {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Add a subtle shadow to the fixed header */
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: var(--color-brown-800);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom cart style */
+.cart-icon {
+  transition: all 0.3s ease;
+}
+.cart-icon:hover {
+  stroke: var(--color-yellow-500);
+  stroke-width: 2;
+}
+
+.cart-icon-wrapper {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 350px;
+  height: 100vh;
+  background-color: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  overflow-y: auto;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.cart-sidebar:not(.hidden) {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+#cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#cart-overlay:not(.hidden) {
+  opacity: 1;
+}
+
+/* Update the search input styles */
+.search-input {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+}
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-yellow-500);
+  box-shadow: 0 0 5px rgba(245, 205, 33, 0.5);
+}
+
+.input-style {
+  background-color: rgba(255, 253, 208, 0.1);
+  border: 1px solid rgba(67, 36, 20, 0.2);
+  color: var(--color-brown-900);
+}
+.input-style:focus {
+  outline: none;
+  border-color: var(--color-yellow-500);
+  box-shadow: 0 0 5px rgba(245, 205, 33, 0.5);
+}
+
+/* Add a subtle yellow accent to the footer gradient */
+.footer-gradient {
+  background: linear-gradient(135deg, var(--color-brown-800), var(--color-brown-700));
+  position: relative;
+}
+
+.footer-gradient::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--color-yellow-600), var(--color-yellow-400));
+}
+
+/* Category tabs */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+.category-tab {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.category-tab.active {
+  background-color: var(--color-yellow-500);
+  color: var(--color-brown-900);
+}
+.category-tab:not(.active) {
+  background-color: #eeeeee;
+  color: var(--color-brown-900);
+}
+.category-tab:hover:not(.active) {
+  background-color: #ddd;
+}
+.category-tab:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+.category-tab:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-yellow-400);
+}
+
+/* Modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal:not(.hidden) {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  margin: 1rem;
+}
+
+.modal:not(.hidden) .modal-content {
+  transform: translateY(0);
+}
+
+/* Cart item animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cart-item-added {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Toast notification */
+.toast-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.toast-notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Success message */
+.success-message {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.success-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Cart item styles */
+.cart-item {
+  display: flex;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+  gap: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.cart-item:hover {
+  background-color: #f9f9f9;
+}
+
+.cart-item-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+.cart-item-name {
+  font-weight: 600;
+  color: var(--color-brown-900);
+  margin-bottom: 4px;
+}
+
+.cart-item-price {
+  font-weight: 600;
+  color: var(--color-brown-900);
+}
+
+/* Quantity controls */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.quantity-btn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.quantity-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.quantity-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-yellow-400);
+}
+
+.quantity-value {
+  width: 24px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Add smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Add scroll margin for section targets */
+.scroll-mt-24 {
+  scroll-margin-top: 96px;
+}
+
+/* Add specific scroll margin for contact section */
+#contact {
+  scroll-margin-top: 80px; /* Match the header height */
+}
+
+/* Loading spinner */
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: var(--color-yellow-500);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Button loader */
+.button-loader {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add container max-width */
+.container {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Section padding adjustments */
+section {
+  padding: 2rem 0;
+}
+
+@media (min-width: 640px) {
+  section {
+    padding: 3rem 0;
+  }
+}
+
+@media (min-width: 768px) {
+  section {
+    padding: 4rem 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  section {
+    padding: 5rem 0;
+  }
+}
+
+/* Mobile menu styles */
+@media (max-width: 768px) {
+  body {
+    padding-top: 60px; /* Reduce top padding on mobile */
+  }
+
+  .search-input {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .cart-sidebar {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .category-tabs {
+    overflow-x: auto;
+    padding-bottom: 8px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
+  }
+
+  .category-tabs::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Chrome/Safari */
+  }
+
+  .category-tab {
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+    flex-shrink: 0; /* Prevent tabs from shrinking */
+  }
+
+  /* Mobile menu */
+  #mobile-menu {
+    position: fixed;
+    top: 60px; /* Match reduced header height */
+    left: 0;
+    right: 0;
+    background-color: var(--color-brown-800);
+    padding: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 40;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  #mobile-menu.active {
+    transform: translateY(0);
+  }
+
+  .mobile-nav-link {
+    display: block;
+    padding: 0.75rem 0;
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mobile-nav-link:last-child {
+    border-bottom: none;
+  }
+
+  .modal-content {
+    padding: 1rem;
+    margin: 0.5rem;
+    width: 95%;
+    max-height: 85vh;
+  }
+
+  /* Improve fixed header on mobile */
+  .fixed-header {
+    height: 60px; /* Reduce header height on mobile */
+  }
+
+  .fixed-header .container {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  /* Make logo smaller on mobile */
+  .fixed-header img.h-12 {
+    height: 2rem;
+  }
+
+  /* Adjust hero section for mobile */
+  .hero-section {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  /* Improve form elements on mobile */
+  input,
+  textarea,
+  select,
+  button {
+    font-size: 16px !important; /* Prevent zoom on focus in iOS */
+  }
+
+  /* Improve cart experience on mobile */
+  .cart-item {
+    padding: 8px;
+  }
+
+  .cart-item-image {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Focus styles for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+/* Remove default focus outline */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+.nav-link:focus-visible {
+  outline: none;
+  box-shadow: none;
+  text-decoration: underline;
+}
+
+/* Error message styles */
+.error-message:not(.hidden) {
+  display: block;
+}
+
+/* Subscription input in footer */
+.footer-subscription-input {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.footer-subscription-input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-subscription-input:focus {
+  outline: none;
+  border-color: var(--color-yellow-500);
+  box-shadow: 0 0 5px rgba(245, 205, 33, 0.5);
+}
+
+/* Add these slider-related styles at the end of the file */
+
+/* Category slider styles */
+.category-slider-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 2rem;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .category-slider-container {
+    padding: 0 2rem;
+  }
+}
+
+.category-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+.category-slider::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.category-slider-item {
+  flex: 0 0 auto;
+  width: 280px;
+  transition: transform 0.3s ease;
+  padding: 0.5rem;
+}
+
+.slider-nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-brown-900);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.8;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+  border: none;
+}
+
+.slider-nav-button:hover {
+  opacity: 1;
+  background-color: var(--color-yellow-500);
+  color: var(--color-brown-900);
+}
+
+.slider-nav-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-yellow-400);
+}
+
+.slider-nav-button.prev {
+  left: 0;
+}
+
+.slider-nav-button.next {
+  right: 0;
+}
+
+.slider-nav-button.hidden {
+  display: none;
+}
+
+/* Add scroll snap for better mobile experience */
+@media (max-width: 768px) {
+  .category-slider {
+    scroll-snap-type: x mandatory;
+    padding: 0.5rem 0.5rem;
+  }
+
+  .category-slider-item {
+    scroll-snap-align: start;
+    width: 85%;
+    padding: 0.25rem;
+  }
+
+  .slider-nav-button {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Add slider indicator dots */
+.slider-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+.slider-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.slider-indicator.active {
+  background-color: var(--color-yellow-500);
+}
+
+/* Hero section specific padding */
+.hero-section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .hero-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* Footer section specific padding */
+footer {
+  padding: 3rem 0;
+}
+
+@media (min-width: 768px) {
+  footer {
+    padding: 4rem 0;
+  }
+}
+
+/* Contact form section padding */
+#contact .container {
+  padding-top: 0.5rem; /* Reduced from 2rem */
+  padding-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  #contact .container {
+    padding-top: 0.75rem; /* Reduced from 3rem */
+    padding-bottom: 1.5rem;
+  }
+}
+
+/* About us section padding */
+#about-us {
+  padding: 3rem 0;
+}
+
+@media (min-width: 768px) {
+  #about-us {
+    padding: 4rem 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  #about-us {
+    padding: 5rem 0;
+  }
+}
+
+/* Menu section padding */
+#menu {
+  padding: 1rem 0; /* Reduced from 2rem */
+}
+
+@media (min-width: 768px) {
+  #menu {
+    padding: 1.5rem 0; /* Reduced from 3rem */
+  }
+}
+
+@media (min-width: 1024px) {
+  #menu {
+    padding: 2rem 0; /* Reduced from 4rem */
+  }
+}
+
+/* Add these styles to the end of your CSS file */
+@media (min-width: 768px) {
+  .hero-section {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Hero content vertical alignment */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Add specific tablet styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  body {
+    padding-top: 70px;
+  }
+
+  .category-slider-item {
+    width: 230px;
+  }
+
+  .modal-content {
+    max-width: 80%;
+  }
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+  .quantity-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .nav-link,
+  .mobile-nav-link,
+  button {
+    min-height: 44px; /* Minimum touch target size */
+    display: flex;
+    align-items: center;
+  }
+
+  /* Improve slider navigation on mobile */
+  .slider-nav-button {
+    width: 36px;
+    height: 36px;
+    opacity: 0.9;
+  }
+
+  /* Better scroll snap for mobile */
+  .category-slider {
+    scroll-snap-type: x mandatory;
+    padding: 0.5rem 0.5rem;
+  }
+
+  .category-slider-item {
+    scroll-snap-align: start;
+    width: 85%;
+    padding: 0.25rem;
+  }
+}
+
+/* Improve form responsiveness */
+@media (max-width: 640px) {
+  .grid.md\:grid-cols-2.gap-4 {
+    grid-template-columns: 1fr;
+  }
+
+  #contact .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  /* Make checkout form more mobile-friendly */
+  #checkout-form input,
+  #checkout-form textarea,
+  #checkout-form select {
+    padding: 0.75rem;
+  }
+}
+
+/* Fix for iOS momentum scrolling */
+.category-slider,
+.cart-sidebar {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Improve dark mode visibility on mobile */
+@media (prefers-color-scheme: dark) {
+  .input-style,
+  .search-input {
+    background-color: rgba(255, 253, 208, 0.15);
+  }
+}
+
+/* Add safe area insets for notched phones */
+@supports (padding: max(0px)) {
+  .fixed-header,
+  #mobile-menu {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .cart-sidebar {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Improve modal scrolling on mobile */
+.modal-content {
+  overscroll-behavior: contain;
+  max-height: 85vh;
+}
+
+/* Add these slider-related styles at the end of the file */
+@media (max-width: 768px) {
+  .category-slider-container {
+    padding: 0 0.5rem;
+  }
+
+  .slider-indicators {
+    margin-top: 0.5rem;
+  }
+
+  .slider-indicator {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+/* Hero section background to match About Us section */
+.hero-section {
+  position: relative;
+  background-color: var(--color-brown-900);
+  width: 100%;
+  height: 100vh;
+  max-height: 800px;
+  overflow: hidden;
+  margin-top: -80px; /* Offset for fixed header */
+  padding-top: 80px; /* Add back padding for content */
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+  z-index: 0;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(67, 36, 20, 0.85) 0%, rgba(67, 36, 20, 0.75) 100%);
+  z-index: 1;
+}
+
+.hero-section > div {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Update text colors for the hero section */
+.hero-section h1 {
+  color: white;
+}
+
+.hero-section p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive adjustments for hero background */
+@media (max-width: 768px) {
+  .hero-section {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .hero-section::before {
+    opacity: 0.15;
+  }
+}
+
+/* Make sure the hero section takes up the full viewport on smaller screens */
+@media (max-height: 700px) {
+  .hero-section {
+    height: auto;
+    min-height: 100vh;
+  }
+}
+
+/* Add a subtle diagonal pattern to sections */
+section {
+  position: relative;
+}
+
+section:nth-child(odd):not(#about-us) {
+  background-color: white;
+  background-image: none;
+}
+
+section:nth-child(even):not(#about-us) {
+  background-color: var(--color-brown-100);
+  background-image: none;
+}
+
+/* Add a subtle border between sections */
+section:not(:last-child) {
+  border-bottom: 1px solid rgba(67, 36, 20, 0.1);
+}
+
+/* Enhance the menu section with a paper-like texture */
+#menu {
+  background-color: white;
+  background-image: none;
+}
+
+/* Enhance the contact section with a subtle grid pattern */
+#contact {
+  background-color: white;
+  background-image: none;
+}
+
