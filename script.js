@@ -2,14 +2,502 @@
 ;(() => {
   const featherIcons = {
     "shopping-cart":
-      '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" class="cart-icon" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>',
+      '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" class="cart-icon" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 2 1.61h9.72a2 2 0 0 2-1.61L23 6H6"></path></svg>',
     search:
       '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
   }
 
-    window.onload = function() {
-    alert("Welcome to Maki City!");
-  };
+  // Device-specific UI enhancement function
+  function enhanceUIForDevice() {
+    // Detect device type
+    const deviceType = getDeviceType()
+
+    // Apply device-specific enhancements
+    document.body.setAttribute("data-device", deviceType)
+
+    // Apply specific enhancements based on device type
+    switch (deviceType) {
+      case "mobile":
+        enhanceMobileUI()
+        break
+      case "tablet":
+        enhanceTabletUI()
+        break
+      case "desktop":
+        enhanceDesktopUI()
+        break
+    }
+
+    // Log device detection for debugging
+    console.log(`Device detected: ${deviceType}. UI enhancements applied.`)
+  }
+
+  // Detect device type based on screen width
+  function getDeviceType() {
+    const width = window.innerWidth
+
+    if (width < 768) {
+      return "mobile"
+    } else if (width >= 768 && width < 1024) {
+      return "tablet"
+    } else {
+      return "desktop"
+    }
+  }
+
+  // Mobile-specific enhancements
+  function enhanceMobileUI() {
+    // Optimize touch targets for mobile
+    document.querySelectorAll("button, .nav-link, .cart-icon-wrapper").forEach((el) => {
+      el.classList.add("touch-optimized")
+    })
+
+    // Improve form inputs for mobile
+    document.querySelectorAll("input, textarea, select").forEach((el) => {
+      el.classList.add("mobile-input")
+    })
+
+    // Optimize images for mobile bandwidth
+    document.querySelectorAll("img").forEach((img) => {
+      if (!img.hasAttribute("loading")) {
+        img.setAttribute("loading", "lazy")
+      }
+
+      // Add specific mobile styling
+      img.classList.add("mobile-optimized-image")
+    })
+
+    // Enhance mobile navigation
+    const mobileMenu = document.getElementById("mobile-menu")
+    if (mobileMenu) {
+      // Improve mobile menu animation
+      mobileMenu.style.transition = "transform 0.3s ease, opacity 0.3s ease"
+
+      // Add swipe gesture for mobile menu
+      addSwipeGesture(mobileMenu)
+    }
+
+    // Optimize cart for mobile
+    const cartSidebar = document.getElementById("cart-sidebar")
+    if (cartSidebar) {
+      cartSidebar.classList.add("mobile-cart")
+    }
+
+    // Add pull-to-refresh functionality
+    addPullToRefresh()
+  }
+
+  // Tablet-specific enhancements
+  function enhanceTabletUI() {
+    // Optimize for tablet screen sizes
+    document.querySelectorAll(".category-slider-item").forEach((item) => {
+      item.classList.add("tablet-optimized")
+    })
+
+    // Enhance touch interactions for tablets
+    document.querySelectorAll("button, .nav-link").forEach((el) => {
+      el.classList.add("tablet-touch")
+    })
+
+    // Optimize modals for tablet
+    document.querySelectorAll(".modal-content").forEach((modal) => {
+      modal.classList.add("tablet-modal")
+    })
+
+    // Enhance tablet navigation
+    const navLinks = document.querySelectorAll(".nav-link")
+    navLinks.forEach((link) => {
+      link.classList.add("tablet-nav")
+    })
+
+    // Optimize images for tablet
+    document.querySelectorAll("img").forEach((img) => {
+      img.classList.add("tablet-optimized-image")
+    })
+  }
+
+  // Desktop-specific enhancements
+  function enhanceDesktopUI() {
+    // Add hover effects for desktop
+    document.querySelectorAll("button, .nav-link, .cart-icon-wrapper").forEach((el) => {
+      el.classList.add("desktop-hover-effect")
+    })
+
+    // Enhance desktop navigation
+    const navLinks = document.querySelectorAll(".nav-link")
+    navLinks.forEach((link) => {
+      link.classList.add("desktop-nav")
+    })
+
+    // Optimize modals for desktop
+    document.querySelectorAll(".modal-content").forEach((modal) => {
+      modal.classList.add("desktop-modal")
+    })
+
+    // Add keyboard shortcuts for desktop
+    addKeyboardShortcuts()
+
+    // Enhance scrolling experience
+    enhanceScrolling()
+  }
+
+  // Add swipe gesture detection for mobile
+  function addSwipeGesture(element) {
+    let touchStartX = 0
+    let touchEndX = 0
+
+    element.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.changedTouches[0].screenX
+      },
+      { passive: true },
+    )
+
+    element.addEventListener(
+      "touchend",
+      (e) => {
+        touchEndX = e.changedTouches[0].screenX
+        handleSwipe()
+      },
+      { passive: true },
+    )
+
+    function handleSwipe() {
+      const swipeThreshold = 50
+      if (touchEndX < touchStartX - swipeThreshold) {
+        // Swipe left - close menu
+        if (element.id === "mobile-menu" && !element.classList.contains("hidden")) {
+          element.classList.add("hidden")
+        }
+      } else if (touchEndX > touchStartX + swipeThreshold) {
+        // Swipe right - open menu
+        if (element.id === "mobile-menu" && element.classList.contains("hidden")) {
+          element.classList.remove("hidden")
+        }
+      }
+    }
+  }
+
+  // Add pull-to-refresh functionality for mobile
+  function addPullToRefresh() {
+    let touchStartY = 0
+    let touchEndY = 0
+
+    document.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartY = e.touches[0].clientY
+      },
+      { passive: true },
+    )
+
+    document.addEventListener(
+      "touchend",
+      (e) => {
+        touchEndY = e.changedTouches[0].clientY
+        handlePullToRefresh()
+      },
+      { passive: true },
+    )
+
+    function handlePullToRefresh() {
+      const pullThreshold = 150
+      if (window.scrollY === 0 && touchEndY - touchStartY > pullThreshold) {
+        // Show refresh indicator
+        showRefreshIndicator()
+
+        // Simulate refresh after delay
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
+      }
+    }
+
+    function showRefreshIndicator() {
+      // Create and show a refresh indicator
+      const indicator = document.createElement("div")
+      indicator.className = "refresh-indicator"
+      indicator.innerHTML = `
+        <div class="spinner"></div>
+        <p>Refreshing...</p>
+      `
+      document.body.prepend(indicator)
+    }
+  }
+
+  // Add keyboard shortcuts for desktop
+  function addKeyboardShortcuts() {
+    document.addEventListener("keydown", (e) => {
+      // ESC key to close modals
+      if (e.key === "Escape") {
+        const modals = document.querySelectorAll(".modal:not(.hidden), #cart-sidebar:not(.hidden)")
+        if (modals.length > 0) {
+          e.preventDefault()
+          // Already handled in existing code
+        }
+      }
+
+      // Ctrl+/ to focus search
+      if (e.key === "/" && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault()
+        const searchInput = document.querySelector(".search-input")
+        if (searchInput) {
+          searchInput.focus()
+        }
+      }
+
+      // Ctrl+B to toggle cart
+      if (e.key === "b" && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault()
+        const cartSidebar = document.getElementById("cart-sidebar")
+        if (cartSidebar) {
+          if (cartSidebar.classList.contains("hidden")) {
+            window.cart.toggleCart()
+          } else {
+            window.cart.toggleCart()
+          }
+        }
+      }
+    })
+  }
+
+  // Enhance scrolling experience for desktop
+  function enhanceScrolling() {
+    // Add smooth scrolling to all internal links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (e) => {
+        // Already handled in existing code
+      })
+    })
+
+    // Add scroll to top button
+    addScrollToTopButton()
+  }
+
+  // Add scroll to top button
+  function addScrollToTopButton() {
+    const button = document.createElement("button")
+    button.className = "scroll-to-top-btn hidden"
+    button.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    `
+    button.setAttribute("aria-label", "Scroll to top")
+    document.body.appendChild(button)
+
+    // Show/hide button based on scroll position
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        button.classList.remove("hidden")
+      } else {
+        button.classList.add("hidden")
+      }
+    })
+
+    // Scroll to top when clicked
+    button.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
+    })
+  }
+
+  // Add CSS for new UI enhancements
+  function addEnhancementStyles() {
+    const styleElement = document.createElement("style")
+    styleElement.textContent = `
+      /* Mobile optimizations */
+      .touch-optimized {
+        min-height: 44px;
+        min-width: 44px;
+      }
+      
+      .mobile-input {
+        font-size: 16px !important;
+      }
+      
+      .mobile-optimized-image {
+        max-width: 100%;
+        height: auto;
+      }
+      
+      .mobile-cart {
+        width: 100% !important;
+      }
+      
+      /* Tablet optimizations */
+      .tablet-optimized {
+        width: 230px;
+      }
+      
+      .tablet-touch {
+        transition: transform 0.2s ease;
+      }
+      
+      .tablet-touch:active {
+        transform: scale(0.98);
+      }
+      
+      .tablet-modal {
+        max-width: 80%;
+      }
+      
+      .tablet-nav {
+        padding: 0.75rem 1rem;
+      }
+      
+      .tablet-optimized-image {
+        max-width: 100%;
+      }
+      
+      /* Desktop optimizations */
+      .desktop-hover-effect {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      
+      .desktop-hover-effect:hover {
+        transform: translateY(-2px);
+      }
+      
+      .desktop-nav {
+        position: relative;
+      }
+      
+      .desktop-nav::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--color-yellow-500);
+        transition: width 0.3s ease;
+      }
+      
+      .desktop-nav:hover::after {
+        width: 100%;
+      }
+      
+      .desktop-modal {
+        max-width: 600px;
+      }
+      
+      /* Scroll to top button */
+      .scroll-to-top-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--color-brown-800);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 90;
+        opacity: 0.8;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        border: none;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      }
+      
+      .scroll-to-top-btn:hover {
+        opacity: 1;
+        transform: translateY(-3px);
+      }
+      
+      .scroll-to-top-btn.hidden {
+        display: none;
+      }
+      
+      /* Refresh indicator */
+      .refresh-indicator {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--color-brown-800);
+        color: white;
+        padding: 10px;
+        text-align: center;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+    /* Additional device-specific enhancements */
+    [data-device="mobile"] .hero-section h1 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+
+    [data-device="tablet"] .hero-section h1 {
+      font-size: 3rem;
+      line-height: 1.3;
+    }
+
+    [data-device="desktop"] .hero-section h1 {
+      font-size: 3.5rem;
+      line-height: 1.4;
+    }
+
+    /* Enhanced navigation for different devices */
+    [data-device="mobile"] .nav-link {
+      font-weight: 600;
+    }
+
+    [data-device="tablet"] .nav-link {
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    [data-device="desktop"] .nav-link {
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Enhanced footer for different devices */
+    [data-device="mobile"] footer {
+      text-align: center;
+    }
+
+    [data-device="tablet"] footer .grid {
+      gap: 1.5rem;
+    }
+
+    [data-device="desktop"] footer .grid {
+      gap: 2rem;
+    }
+  `
+    document.head.appendChild(styleElement)
+  }
+
+  window.onload = () => {
+    // Remove the welcome alert to avoid disrupting user experience
+    // alert("Welcome to Maki City!");
+
+    // Add enhancement styles
+    addEnhancementStyles()
+
+    // Apply device-specific enhancements
+    enhanceUIForDevice()
+
+    // Listen for window resize to reapply enhancements
+    let resizeTimer
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(() => {
+        enhanceUIForDevice()
+      }, 250)
+    })
+  }
 
   function replaceIcons() {
     document.querySelectorAll("[data-feather]").forEach((el) => {
@@ -976,19 +1464,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to check if slider buttons should be visible
   function checkSliderButtons(slider, prevButton, nextButton) {
-    // Check if we're at the start
+    // Check if we're at the start - still add hidden class for styling but buttons remain visible
     if (slider.scrollLeft <= 10) {
       prevButton.classList.add("hidden")
     } else {
       prevButton.classList.remove("hidden")
     }
 
-    // Check if we're at the end
+    // Check if we're at the end - still add hidden class for styling but buttons remain visible
     if (slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 10) {
       nextButton.classList.add("hidden")
     } else {
       nextButton.classList.remove("hidden")
     }
+
+    // Ensure buttons are always enabled
+    prevButton.disabled = false
+    nextButton.disabled = false
   }
 
   // Function to update slider indicators
