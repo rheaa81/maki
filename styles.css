@@ -149,7 +149,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem; /* Reduced from 2rem to 1rem */
   padding: 0 1rem;
 }
 .category-tab {
@@ -499,7 +499,7 @@ section {
 
   /* Improve fixed header on mobile */
   .fixed-header {
-    height: 60px; /* Reduce header height on mobile */
+    height: 60px;
   }
 
   .fixed-header .container {
@@ -598,19 +598,17 @@ select:focus {
   box-shadow: 0 0 5px rgba(245, 205, 33, 0.5);
 }
 
-/* Add these slider-related styles at the end of the file */
-
 /* Category slider styles */
 .category-slider-container {
   position: relative;
   width: 100%;
-  margin-bottom: 2rem;
-  padding: 0; /* Removed left and right padding (was 0 1.5rem) */
+  margin-bottom: 1rem; /* Reduced from 2rem to 1rem */
+  padding: 0;
 }
 
 @media (min-width: 768px) {
   .category-slider-container {
-    padding: 0; /* Removed left and right padding (was 0 2rem) */
+    padding: 0;
   }
 }
 
@@ -619,33 +617,33 @@ select:focus {
   overflow-x: auto;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  gap: 1rem;
-  padding: 0.5rem 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  gap: 0.5rem; /* Reduced from 1rem to 0.5rem */
+  padding: 0.25rem 0; /* Reduced from 0.5rem to 0.25rem */
 }
 
 .category-slider::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
 .category-slider-item {
   flex: 0 0 auto;
   width: 280px;
   transition: transform 0.3s ease;
-  padding: 0.5rem;
+  padding: 0.25rem; /* Reduced from 0.5rem to 0.25rem */
 }
 
-/* Add these styles to make the slider always visible */
+/* Modify the slider navigation buttons to make them always visible */
 .slider-nav-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   background-color: var(--color-brown-900);
-  color: white;
+  color: var(--color-yellow-600);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -654,33 +652,18 @@ select:focus {
   opacity: 0.8;
   transition: opacity 0.3s ease, background-color 0.3s ease;
   border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Remove the .hidden class from slider buttons to keep them always visible */
-.slider-nav-button.hidden {
-  display: flex;
-  opacity: 0.5;
-}
-
-.slider-nav-button:hover {
-  opacity: 1;
-  background-color: var(--color-yellow-500);
-  color: var(--color-brown-900);
-}
-
-.slider-nav-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--color-yellow-400);
-}
-
+/* Make sure the buttons are positioned outside the slider content */
 .slider-nav-button.prev {
-  left: 0;
-  border-radius: 0 50% 50% 0; /* Changed to only round the right side */
+  left: -5px;
+  border-radius: 0 50% 50% 0;
 }
 
 .slider-nav-button.next {
-  right: 0;
-  border-radius: 50% 0 0 50%; /* Changed to only round the left side */
+  right: -5px;
+  border-radius: 50% 0 0 50%;
 }
 
 .slider-nav-button.hidden {
@@ -701,8 +684,18 @@ select:focus {
   }
 
   .slider-nav-button {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
+    opacity: 0.9;
+    background-color: var(--color-yellow-600);
+  }
+
+  .slider-nav-button.prev {
+    left: 0;
+  }
+
+  .slider-nav-button.next {
+    right: 0;
   }
 }
 
@@ -750,42 +743,48 @@ select:focus {
 
 /* Footer section specific padding */
 footer {
-  padding: 3rem 0;
+  padding: 1rem 0 1rem;
 }
 
 @media (min-width: 768px) {
   footer {
-    padding: 4rem 0;
-  }
+    padding: 2rem 0 1rem;
 }
 
 /* Contact form section padding */
 #contact .container {
   padding-top: 0.5rem; /* Reduced from 2rem */
-  padding-bottom: 1rem;
+  padding-bottom: 4rem; /* Increased from 1rem to 4rem */
 }
 
 @media (min-width: 768px) {
   #contact .container {
     padding-top: 0.75rem; /* Reduced from 3rem */
-    padding-bottom: 1.5rem;
+    padding-bottom: 5rem; /* Increased from 1.5rem to 5rem */
+  }
+}
+
+@media (min-width: 1024px) {
+  #contact .container {
+    padding-top: 1rem;
+    padding-bottom: 6rem; /* Added new rule for larger screens */
   }
 }
 
 /* About us section padding */
 #about-us {
-  padding: 3rem 0;
+  padding: 3rem 0 5rem; /* Increased bottom padding from 0 to 5rem */
 }
 
 @media (min-width: 768px) {
   #about-us {
-    padding: 4rem 0;
+    padding: 4rem 0 6rem; /* Increased bottom padding from 0 to 6rem */
   }
 }
 
 @media (min-width: 1024px) {
   #about-us {
-    padding: 5rem 0;
+    padding: 5rem 0 7rem; /* Increased bottom padding from 0 to 7rem */
   }
 }
 
@@ -1122,21 +1121,45 @@ footer {
 .custom-heading {
   display: flex;
   flex-direction: column;
+  line-height: 0.9; /* Reduced from 1.2 to make lines closer together */
+  margin-top: 3rem; /* Added margin-top to move the heading lower */
 }
 
 .custom-heading span {
   display: block;
-  line-height: 1.2;
+  line-height: 0.9; /* Reduced from 1.2 to make lines closer together */
+  margin-bottom: 0.1rem; /* Reduced from 0.2rem to bring lines closer */
 }
 
 @media (max-width: 768px) {
   .custom-heading {
     font-size: 2rem;
-    line-height: 1.1;
+    line-height: 0.9; /* Reduced from 1.1 to make lines closer together */
   }
 
   .custom-heading span {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.1rem; /* Reduced from 0.25rem to bring lines closer */
+  }
+}
+
+/* Hero text specific styling */
+.hero-section h1 {
+  margin-top: 2rem;
+  color: white;
+  line-height: 0.9; /* Reduced from 1.2 to make lines closer together */
+  letter-spacing: 0.5px;
+}
+
+.hero-section h1 br {
+  display: block;
+  content: "";
+  margin-bottom: 0.1rem; /* Reduced from 0.2rem to bring lines closer */
+}
+
+@media (min-width: 768px) {
+  .hero-section h1 {
+    margin-top: 2rem;
+    line-height: 1.0; /* Reduced from 1.3 to make lines closer together */
   }
 }
 
@@ -1163,7 +1186,7 @@ footer {
   background-image: url("https://images.unsplash.com/photo-1553621042-f6e147245754?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80");
   background-size: cover;
   background-position: center;
-  opacity: 0.6; /* Increased from 0.4 to 0.6 for better visibility */
+  opacity: 0.4; /* Reduced from 0.6 to 0.4 to make it appear browner */
   z-index: 0;
 }
 
@@ -1174,7 +1197,7 @@ footer {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(67, 36, 20, 0.6) 0%, rgba(67, 36, 20, 0.5) 100%); /* Reduced opacity from 0.7/0.6 to 0.6/0.5 */
+  background: linear-gradient(135deg, rgba(67, 36, 20, 0.8) 0%, rgba(67, 36, 20, 0.7) 100%); /* Increased opacity from 0.6/0.5 to 0.8/0.7 for browner appearance */
   z-index: 1;
 }
 
@@ -1190,27 +1213,21 @@ footer {
 .hero-section h1 {
   margin-top: 2rem; /* Reduced from 4rem to move text higher */
   color: white;
-  line-height: 1.2; /* Tighter line height for better spacing */
-}
-
-/* Hero text specific styling */
-.hero-section h1 {
-  margin-top: 2rem;
-  color: white;
-  line-height: 1.2;
+  line-height: 0.9; /* Tighter line height for better spacing */
   letter-spacing: 0.5px;
 }
 
+/* Hero text specific styling */
 .hero-section h1 br {
   display: block;
   content: "";
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.1rem;
 }
 
 @media (min-width: 768px) {
   .hero-section h1 {
     margin-top: 2rem;
-    line-height: 1.3;
+    line-height: 1.0;
   }
 }
 
@@ -1306,12 +1323,244 @@ section:not(:last-child) {
 
 /* Reduce the bottom padding of the footer */
 footer {
-  padding: 2.5rem 0 2rem; /* Reduced from 3rem 0 to 2.5rem 0 2rem */
+  padding: 2.5rem 0 1rem; /* Reduced from 3rem 0 to 2.5rem 0 2rem */
 }
 
 @media (min-width: 768px) {
   footer {
-    padding: 3rem 0 2rem; /* Reduced from 4rem 0 to 3rem 0 2rem */
+    padding: 3rem 0 1rem; /* Reduced from 4rem 0 to 3rem 0 2rem */
+  }
+}
+
+/* Also reduce the padding for the copyright section */
+footer .mt-8 {
+  margin-top: 1.5rem; /* Reduced from default 2rem (mt-8) */
+  padding-top: 1rem; /* Reduced from default */
+}
+
+/* Improve contact section responsiveness */
+@media (max-width: 1200px) {
+  #contact .max-w-5xl {
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 768px) {
+  #contact .grid.md\:grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+
+  #contact .p-6 {
+    padding: 1rem;
+  }
+
+  #contact h3 {
+    font-size: 1.5rem;
+  }
+
+  #contact .grid.md\:grid-cols-2 > div:first-child {
+    border-bottom: 1px solid #eee;
+  }
+}
+
+.desktop-nav::after {
+  display: none;
+}
+
+/* Also update the nav-link hover style to remove any yellow underline effect */
+.nav-link:hover {
+  color: var(--color-yellow-500) !important;
+  text-shadow: 0 0 1px var(--color-yellow-500);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+/* Reduce spacing after section titles */
+.mb-8 {
+  margin-bottom: 1.5rem; /* This will affect all elements with mb-8 class */
+}
+
+/* Add a more specific selector for menu section titles */
+#menu-container h3.text-2xl.md\:text-3xl.font-bold.mb-8 {
+  margin-bottom: 0.5rem; /* Reduced from 2rem (mb-8) to 1rem */
+}
+
+/* Reduce spacing in menu sections */
+.mb-16 {
+  margin-bottom: 2rem; /* Reduced from 4rem (mb-16) to 2rem */
+}
+
+/* Improve mobile menu spacing and touch targets */
+@media (max-width: 768px) {
+  /* Reduce excessive spacing in menu sections */
+  #menu-container h3.text-2xl.md\:text-3xl.font-bold.mb-8 {
+    margin-bottom: 0.5rem; /* Further reduced from 1rem to 0.5rem */
+  }
+  
+  /* Improve spacing between menu categories */
+  .mb-16 {
+    margin-bottom: 1.5rem; /* Further reduced from 2rem to 1.5rem for more compact layout */
+  }
+  
+  /* Enhance touch targets for mobile navigation */
+  .mobile-nav-link {
+    padding: 0.85rem 0;
+    font-size: 1.1rem;
+  }
+  
+  /* Improve cart item spacing */
+  .cart-item {
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  /* Better spacing for category tabs */
+  .category-tab {
+    padding: 0.6rem 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  /* Optimize hero section for mobile */
+  .hero-section {
+    padding-top: 70px; /* Adjusted to account for smaller header */
+    padding-bottom: 2rem;
+  }
+  
+  /* Improve mobile bottom navigation */
+  .mobile-bottom-nav {
+    padding: 0.6rem 0;
+    box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .mobile-bottom-nav a {
+    font-size: 0.65rem;
+  }
+  
+  /* Fix spacing in footer for mobile */
+  footer .grid {
+    gap: 1.5rem;
+  }
+}
+
+/* Specific tablet improvements */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Optimize container padding */
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  /* Improve slider item sizing */
+  .category-slider-item {
+    width: 220px; /* Slightly smaller for better fit */
+  }
+  
+  /* Better spacing for hero section */
+  .hero-section {
+    padding-top: 90px;
+    padding-bottom: 3rem;
+  }
+  
+  /* Improve grid layout for contact section */
+  #contact .grid.md\:grid-cols-2 {
+    gap: 1.5rem;
+  }
+}
+
+/* Shared improvements for both mobile and tablet */
+@media (max-width: 1024px) {
+  /* Improve form elements */
+  input, textarea, select {
+    border-radius: 8px;
+  }
+  
+  /* Better button styling */
+  button {
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  
+  button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Enhance modal appearance */
+  .modal-content {
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Improve cart sidebar */
+  .cart-sidebar {
+    box-shadow: -1px 0 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Fix image aspect ratios */
+  .category-slider-item img {
+    aspect-ratio: 16/9;
+    object-fit: cover;
+  }
+}
+
+/* Fix for iOS safe areas */
+@supports (padding: max(0px)) {
+  .fixed-header {
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+  }
+  
+  .mobile-bottom-nav {
+    padding-bottom: max(0.6rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Improve scrolling performance */
+.category-slider, 
+.cart-sidebar,
+.modal-content {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Fix for the large space before "Nori Maki Mixed" in menu section */
+#menu-container h3.text-2xl.md\:text-3xl.font-bold.mb-8 {
+  margin-bottom: 0.5rem; /* Reduced from 1.5rem to 0.5rem */
+}
+
+/* Reduce spacing between menu sections */
+.mb-16 {
+  margin-bottom: 1.5rem; /* Reduced from 2rem to 1.5rem */
+}
+
+/* Testimonials Section Styles */
+.testimonial-slider {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.testimonial-slide {
+  transition: all 0.3s ease;
+}
+
+.testimonial-slide:hover {
+  transform: translateY(-5px);
+}
+
+@media (max-width: 1024px) {
+  .testimonial-slider {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonial-slider {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .testimonial-slide {
+    max-width: 90%;
+    margin: 0 auto;
   }
 }
 

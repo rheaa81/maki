@@ -625,8 +625,8 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault()
     const form = event.target
     const nameInput = form.querySelector("#name")
-    const phoneInput = form.querySelector("#phone")
     const emailInput = form.querySelector("#email")
+    const subjectInput = form.querySelector("#subject")
     const messageInput = form.querySelector("#message")
     const submitButton = form.querySelector("button[type='submit']")
     const buttonText = submitButton.querySelector(".button-text")
@@ -646,16 +646,6 @@ document.addEventListener("DOMContentLoaded", () => {
       clearInputError(nameInput)
     }
 
-    if (!phoneInput.value.trim()) {
-      showInputError(phoneInput, "Please enter your phone number")
-      isValid = false
-    } else if (!validatePhone(phoneInput.value.trim())) {
-      showInputError(phoneInput, "Please enter a valid Philippine mobile number")
-      isValid = false
-    } else {
-      clearInputError(phoneInput)
-    }
-
     if (!emailInput.value.trim()) {
       showInputError(emailInput, "Please enter your email")
       isValid = false
@@ -664,6 +654,13 @@ document.addEventListener("DOMContentLoaded", () => {
       isValid = false
     } else {
       clearInputError(emailInput)
+    }
+
+    if (!subjectInput.value.trim()) {
+      showInputError(subjectInput, "Please enter a subject")
+      isValid = false
+    } else {
+      clearInputError(subjectInput)
     }
 
     if (!messageInput.value.trim()) {
@@ -925,16 +922,6 @@ document.addEventListener("DOMContentLoaded", () => {
       this.updateCartDisplay()
       this.saveCart()
       this.showToast("Cart cleared")
-    },
-
-    saveCart() {
-      localStorage.setItem(
-        "makiCityCart",
-        JSON.stringify({
-          items: this.items,
-          total: this.total,
-        }),
-      )
     },
 
     saveCartForLater() {
@@ -1464,23 +1451,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to check if slider buttons should be visible
   function checkSliderButtons(slider, prevButton, nextButton) {
-    // Check if we're at the start - still add hidden class for styling but buttons remain visible
+    // Check if we're at the start
     if (slider.scrollLeft <= 10) {
       prevButton.classList.add("hidden")
     } else {
       prevButton.classList.remove("hidden")
     }
 
-    // Check if we're at the end - still add hidden class for styling but buttons remain visible
+    // Check if we're at the end
     if (slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 10) {
       nextButton.classList.add("hidden")
     } else {
       nextButton.classList.remove("hidden")
     }
-
-    // Ensure buttons are always enabled
-    prevButton.disabled = false
-    nextButton.disabled = false
   }
 
   // Function to update slider indicators
@@ -1962,6 +1945,41 @@ document.addEventListener("DOMContentLoaded", () => {
         toast.classList.remove("show")
       }, 3000)
     }
+  }
+
+  // Add this to the end of your DOMContentLoaded event listener
+
+  // Testimonial slider functionality
+  const testimonialDots = document.querySelectorAll("#testimonials .flex.justify-center button")
+  if (testimonialDots.length > 0) {
+    testimonialDots.forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        // Reset all dots
+        testimonialDots.forEach((d) => {
+          d.classList.remove("bg-yellow-500")
+          d.classList.add("bg-gray-300")
+        })
+
+        // Activate current dot
+        dot.classList.remove("bg-gray-300")
+        dot.classList.add("bg-yellow-500")
+
+        // On a real implementation, you would slide to the corresponding testimonial
+        // For this demo, we're just changing the dot colors
+
+        // Announce to screen readers
+        const announcement = document.createElement("div")
+        announcement.setAttribute("aria-live", "polite")
+        announcement.classList.add("sr-only")
+        announcement.textContent = `Showing testimonial ${index + 1} of ${testimonialDots.length}`
+        document.body.appendChild(announcement)
+
+        // Remove announcement after it's been read
+        setTimeout(() => {
+          document.body.removeChild(announcement)
+        }, 1000)
+      })
+    })
   }
 })
 
