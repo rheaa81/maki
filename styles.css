@@ -363,7 +363,27 @@ html {
 
 /* Add specific scroll margin for contact section */
 #contact {
-  scroll-margin-top: 80px; /* Match the header height */
+  background-color: white;
+  scroll-margin-top: 80px;
+}
+
+#contact .container {
+  padding-top: 2rem; /* Increased from 0.5rem to move content down */
+  padding-bottom: 8rem; /* Increased from 4rem to 8rem */
+}
+
+@media (min-width: 768px) {
+  #contact .container {
+    padding-top: 3rem; /* Increased from 0.75rem to move content down */
+    padding-bottom: 10rem; /* Increased from 5rem to 10rem */
+  }
+}
+
+@media (min-width: 1024px) {
+  #contact .container {
+    padding-top: 4rem; /* Increased from 1rem to move content down */
+    padding-bottom: 12rem; /* Increased from 6rem to 12rem */
+  }
 }
 
 /* Loading spinner */
@@ -427,7 +447,7 @@ section {
 /* Mobile menu styles */
 @media (max-width: 768px) {
   body {
-    padding-top: 60px; /* Reduce top padding on mobile */
+    padding-top: 70px; /* Increased from 60px to give more space for the larger header */
   }
 
   .search-input {
@@ -464,7 +484,7 @@ section {
   /* Mobile menu */
   #mobile-menu {
     position: fixed;
-    top: 60px; /* Match reduced header height */
+    top: 70px; /* Increased from 60px to match the new header height */
     left: 0;
     right: 0;
     background-color: var(--color-brown-800);
@@ -480,10 +500,15 @@ section {
   }
 
   .mobile-nav-link {
-    display: block;
-    padding: 0.75rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
     color: white;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
   }
 
   .mobile-nav-link:last-child {
@@ -499,41 +524,68 @@ section {
 
   /* Improve fixed header on mobile */
   .fixed-header {
-    height: 60px;
+    height: 70px; /* Increased from 60px */
   }
 
   .fixed-header .container {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.75rem; /* Increased from 0.5rem */
+    padding-bottom: 0.75rem; /* Increased from 0.5rem */
   }
 
-  /* Make logo smaller on mobile */
+  /* Make logo slightly larger on mobile */
   .fixed-header img.h-12 {
-    height: 2rem;
+    height: 2.5rem; /* Increased from 2rem */
   }
 
   /* Adjust hero section for mobile */
   .hero-section {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 70px; /* Adjusted to account for larger header */
+    padding-bottom: 2rem;
   }
 
-  /* Improve form elements on mobile */
-  input,
-  textarea,
-  select,
-  button {
-    font-size: 16px !important; /* Prevent zoom on focus in iOS */
+  /* Improve mobile bottom navigation */
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 0.8rem 0; /* Increased from 0.6rem */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+    height: 65px; /* Added explicit height */
   }
 
-  /* Improve cart experience on mobile */
-  .cart-item {
-    padding: 8px;
+  .mobile-bottom-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 0.75rem; /* Increased from 0.65rem */
+    font-weight: 500;
+    width: 20%; /* Ensure equal width for all nav items */
+    text-align: center;
   }
 
-  .cart-item-image {
-    width: 50px;
-    height: 50px;
+  .mobile-bottom-nav a.active {
+    color: var(--color-yellow-500);
+    font-weight: 600;
+  }
+
+  .mobile-bottom-nav svg {
+    margin-bottom: 0.3rem; /* Increased from 0.25rem */
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Fix the truncated contact icon in mobile nav */
+  .mobile-bottom-nav a[href="#contact"] svg {
+    width: 24px;
+    height: 24px;
+    overflow: visible;
   }
 }
 
@@ -723,89 +775,28 @@ select:focus {
 
 /* Hero section specific padding */
 .hero-section {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  position: relative;
+  background-color: var(--color-brown-900);
+  width: 100%;
+  height: 100vh; /* Make it full viewport height */
+  max-height: none; /* Remove max-height restriction */
+  overflow: hidden;
+  margin-top: -80px; /* Offset for fixed header */
+  padding-top: 80px; /* Add back padding for content */
+  padding-bottom: 5rem; /* Increased bottom padding */
+}
+
+/* Adjust the image position in hero section */
+.hero-section .flex.justify-center.items-center {
+  margin-top: 6rem; /* Increased from 1rem to move image lower */
 }
 
 @media (min-width: 768px) {
-  .hero-section {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+  .hero-section .flex.justify-center.items-center {
+    margin-top: 8rem; /* Increased for tablet/desktop */
   }
 }
 
-@media (min-width: 1024px) {
-  .hero-section {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
-}
-
-/* Footer section specific padding */
-footer {
-  padding: 1rem 0 1rem;
-}
-
-@media (min-width: 768px) {
-  footer {
-    padding: 2rem 0 1rem;
-}
-
-/* Contact form section padding */
-#contact .container {
-  padding-top: 0.5rem; /* Reduced from 2rem */
-  padding-bottom: 4rem; /* Increased from 1rem to 4rem */
-}
-
-@media (min-width: 768px) {
-  #contact .container {
-    padding-top: 0.75rem; /* Reduced from 3rem */
-    padding-bottom: 5rem; /* Increased from 1.5rem to 5rem */
-  }
-}
-
-@media (min-width: 1024px) {
-  #contact .container {
-    padding-top: 1rem;
-    padding-bottom: 6rem; /* Added new rule for larger screens */
-  }
-}
-
-/* About us section padding */
-#about-us {
-  padding: 3rem 0 5rem; /* Increased bottom padding from 0 to 5rem */
-}
-
-@media (min-width: 768px) {
-  #about-us {
-    padding: 4rem 0 6rem; /* Increased bottom padding from 0 to 6rem */
-  }
-}
-
-@media (min-width: 1024px) {
-  #about-us {
-    padding: 5rem 0 7rem; /* Increased bottom padding from 0 to 7rem */
-  }
-}
-
-/* Menu section padding */
-#menu {
-  padding: 1rem 0; /* Reduced from 2rem */
-}
-
-@media (min-width: 768px) {
-  #menu {
-    padding: 1.5rem 0; /* Reduced from 3rem */
-  }
-}
-
-@media (min-width: 1024px) {
-  #menu {
-    padding: 2rem 0; /* Reduced from 4rem */
-  }
-}
-
-/* Add these styles to the end of your CSS file */
 @media (min-width: 768px) {
   .hero-section {
     min-height: 500px;
@@ -1122,7 +1113,7 @@ footer {
   display: flex;
   flex-direction: column;
   line-height: 0.9; /* Reduced from 1.2 to make lines closer together */
-  margin-top: 3rem; /* Added margin-top to move the heading lower */
+  margin-top: 6rem; /* Increased from 3rem to 6rem to move heading lower */
 }
 
 .custom-heading span {
@@ -1133,6 +1124,7 @@ footer {
 
 @media (max-width: 768px) {
   .custom-heading {
+    margin-top: 4rem; /* Adjusted for mobile */
     font-size: 2rem;
     line-height: 0.9; /* Reduced from 1.1 to make lines closer together */
   }
@@ -1164,18 +1156,6 @@ footer {
 }
 
 /* Update the hero section background to a darker tone that matches the restaurant vibe */
-.hero-section {
-  position: relative;
-  background-color: var(--color-brown-900);
-  width: 100%;
-  height: 100vh;
-  max-height: 800px;
-  overflow: hidden;
-  margin-top: -80px; /* Offset for fixed header */
-  padding-top: 80px; /* Add back padding for content */
-  padding-bottom: 5rem; /* Increased bottom padding to cover the screen */
-}
-
 .hero-section::before {
   content: "";
   position: absolute;
@@ -1244,11 +1224,6 @@ footer {
 
 /* Responsive adjustments for hero background */
 @media (max-width: 768px) {
-  .hero-section {
-    height: auto;
-    min-height: 100vh;
-  }
-
   .hero-section::before {
     opacity: 0.15;
   }
@@ -1289,10 +1264,6 @@ section:not(:last-child) {
 }
 
 /* Enhance the contact section with a subtle grid pattern */
-#contact {
-  background-color: white;
-  background-image: none;
-}
 
 /* Apply yellow outline hover effect to navigation links and cart icon */
 .nav-link:hover {
@@ -1396,46 +1367,46 @@ footer .mt-8 {
   #menu-container h3.text-2xl.md\:text-3xl.font-bold.mb-8 {
     margin-bottom: 0.5rem; /* Further reduced from 1rem to 0.5rem */
   }
-  
+
   /* Improve spacing between menu categories */
   .mb-16 {
     margin-bottom: 1.5rem; /* Further reduced from 2rem to 1.5rem for more compact layout */
   }
-  
+
   /* Enhance touch targets for mobile navigation */
   .mobile-nav-link {
     padding: 0.85rem 0;
     font-size: 1.1rem;
   }
-  
+
   /* Improve cart item spacing */
   .cart-item {
     padding: 10px;
     gap: 10px;
   }
-  
+
   /* Better spacing for category tabs */
   .category-tab {
     padding: 0.6rem 1.2rem;
     margin-bottom: 0.25rem;
   }
-  
+
   /* Optimize hero section for mobile */
   .hero-section {
     padding-top: 70px; /* Adjusted to account for smaller header */
     padding-bottom: 2rem;
   }
-  
+
   /* Improve mobile bottom navigation */
   .mobile-bottom-nav {
     padding: 0.6rem 0;
     box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.1);
   }
-  
+
   .mobile-bottom-nav a {
     font-size: 0.65rem;
   }
-  
+
   /* Fix spacing in footer for mobile */
   footer .grid {
     gap: 1.5rem;
@@ -1449,18 +1420,18 @@ footer .mt-8 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
-  
+
   /* Improve slider item sizing */
   .category-slider-item {
     width: 220px; /* Slightly smaller for better fit */
   }
-  
+
   /* Better spacing for hero section */
   .hero-section {
     padding-top: 90px;
     padding-bottom: 3rem;
   }
-  
+
   /* Improve grid layout for contact section */
   #contact .grid.md\:grid-cols-2 {
     gap: 1.5rem;
@@ -1470,33 +1441,35 @@ footer .mt-8 {
 /* Shared improvements for both mobile and tablet */
 @media (max-width: 1024px) {
   /* Improve form elements */
-  input, textarea, select {
+  input,
+  textarea,
+  select {
     border-radius: 8px;
   }
-  
+
   /* Better button styling */
   button {
     transition: transform 0.2s ease, background-color 0.2s ease;
   }
-  
+
   button:active {
     transform: scale(0.98);
   }
-  
+
   /* Enhance modal appearance */
   .modal-content {
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   }
-  
+
   /* Improve cart sidebar */
   .cart-sidebar {
     box-shadow: -1px 0 15px rgba(0, 0, 0, 0.15);
   }
-  
+
   /* Fix image aspect ratios */
   .category-slider-item img {
-    aspect-ratio: 16/9;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
   }
 }
@@ -1506,14 +1479,14 @@ footer .mt-8 {
   .fixed-header {
     padding-top: max(0.5rem, env(safe-area-inset-top));
   }
-  
+
   .mobile-bottom-nav {
     padding-bottom: max(0.6rem, env(safe-area-inset-bottom));
   }
 }
 
 /* Improve scrolling performance */
-.category-slider, 
+.category-slider,
 .cart-sidebar,
 .modal-content {
   -webkit-overflow-scrolling: touch;
@@ -1557,10 +1530,42 @@ footer .mt-8 {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
-  
+
   .testimonial-slide {
     max-width: 90%;
     margin: 0 auto;
+  }
+}
+
+/* Adjust hero section for mobile */
+@media (max-width: 768px) {
+  .hero-section {
+    height: auto;
+    min-height: 100vh;
+    padding-bottom: 8rem; /* Increased padding for mobile */
+  }
+
+  .custom-heading {
+    margin-top: 4rem; /* Adjusted for mobile */
+  }
+}
+
+/* Adjust for mobile bottom nav */
+@media (max-width: 768px) {
+  /* Add padding to the bottom of the page to account for the fixed bottom nav */
+  body {
+    padding-bottom: 65px;
+  }
+
+  /* Ensure the bottom nav doesn't cover content in sections */
+  section:last-of-type {
+    margin-bottom: 20px;
+  }
+
+  /* Adjust the hero section for the new header height */
+  .hero-section {
+    margin-top: -70px;
+    padding-top: 70px;
   }
 }
 
